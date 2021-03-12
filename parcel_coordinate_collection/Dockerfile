@@ -8,4 +8,4 @@ RUN pip install -r requirements.txt
 
 COPY src/ .
 
-ENTRYPOINT ["python", "plot_shape_collection.py"]
+ENTRYPOINT ["python", "parcel_coordinate_collection.py"]

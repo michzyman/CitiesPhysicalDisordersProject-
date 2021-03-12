@@ -32,7 +32,7 @@ class HartfordSurveyBot:
     # This is to ensure the page has fully loaded, a better solution should be found
     time.sleep(10)
 
-  def search_plot(self, address):
+  def search_parcel(self, address):
     address = address.upper()
 
     time.sleep(1)
@@ -67,10 +67,10 @@ class HartfordSurveyBot:
 try:
   bot = HartfordSurveyBot()
 
-  plot_addresses = get_addresses('plots.txt')
+  parcel_addresses = get_addresses('parcels.txt')
 
-  for address in plot_addresses:
-    bot.search_plot(address)
+  for address in parcel_addresses:
+    bot.search_parcel(address)
     bot.save_csv()
 
 except:
