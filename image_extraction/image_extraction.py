@@ -1,31 +1,9 @@
-# requests and json are the dependencies
+# code from: https://elvinouyang.github.io/project/how-to-query-google-street-view-api-with-python/
+# Dependencies: requests, json
 import requests
 import json
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-
-
-
-
-
-meta_base = 'https://maps.googleapis.com/maps/api/streetview/metadata?'
-pic_base = 'https://maps.googleapis.com/maps/api/streetview?'
-api_key = "AIzaSyAVejhM4zie6PSuE05nY7NZZJ89t1dweLo"
-# using my graduate school almar mater, GWU, as an example
-location = '2121 I St NW, Washington, DC 20052'
-
-# define the params for the metadata reques
-meta_params = {'key': api_key,
-               'location': location}
-# define the params for the picture request
-pic_params = {'key': api_key,
-              'location': location,
-              'size': "640x640"}
-
-# obtain the metadata of the request (this is free)
-meta_response = requests.get(meta_base, params=meta_params)
-
-
 
 class StreetViewer(object):
     def __init__(self, api_key, location, size="640x640",
