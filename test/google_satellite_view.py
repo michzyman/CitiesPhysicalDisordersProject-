@@ -1,37 +1,39 @@
+API_key = "AIzaSyB3cnuHVDqgkccmk5teRruYz1LD_6Shkm0"
+
 # https://pypi.org/project/google-streetview/
 # Import google_streetview for the api module
 
-import requests
+import requests 
 import pandas
+from image_extraction import StreetViewer
 
-df = pandas.read_csv('params.csv')
+df = pandas.read_csv('parcels.csv')
+# print(df.columns)
+df['input'] = df.latitude.astype(str) + ',' + df.longitude.astype(str)
 
-print(df)
+test = StreetViewer(API_key, df["input"].iloc[0])
+test.get_pic()
 
-with open('params.txt',  mode='r') as csv_file:
-    csv_reader = csv.DictReader(csv_file)
-    line_count = 0
-    for row in csv_reader:
-        if line_count == 0:
-            print(f'Column names are {", ".join(row)}')
-            line_count += 1
-        centers = (f'\t{row["latitude"]} , {row["longitude"]} ')
-        print(centers)
-        line_count += 1
-    print(f'Processed {line_count} lines.') 
+# print(df.input.head)
 
+# for i in range(len(df)): 
+#     center = df.input.iloc[i]
 
+# print(len(df))
 
-params = [{
-	'size': '600x300', # max 640x640 pixels
-    'zoom' : '20',
-    'maptype' : 'satellite',
-    'center': center,
-	'key' : 'AIzaSyB3cnuHVDqgkccmk5teRruYz1LD_6Shkm0'
-}] 
+# for i in range(0,2):
+#     center = df['input'].iloc[i]
+#     print(center)
+#     params = [{
+#         # 'size': '600x300', # max 640x640 pixels
+#         # 'zoom' : '20',
+#         # 'maptype' : 'satellite',
+#         'center': center,
+#         'key' : API_key
+#     }] 
 
-# Create a results object
-response = request.get('https://maps.googleapis.com/maps/api/staticmap?', params)
+#     # Create a results object
+#     response = requests.get('https://maps.googleapis.com/maps/api/staticmap?size=600x300&zoom=20&maptype=satellite', params)
 
-# Download images to directory 'downloads'
-response.download_links('downloads')
+#     # Download images to directory 'downloads'
+#     response.download_links('downloads')
