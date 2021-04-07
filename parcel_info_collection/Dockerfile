@@ -10,4 +10,4 @@ COPY src/ .
 
 ENTRYPOINT ["python"]
 
-CMD ["parcel-info-collection.py"]
+CMD ["parcel_info_collection.py"]
