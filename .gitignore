@@ -1,8 +1,13 @@
-*/env/
-
+# Directories
+env
 __pycache__
-.vscode/
+.vscode
 .DS_Store
 Thumbs.db
+
+
+# Files
+parcel-addresses.csv
+parcels.csv
 *.png
 secrets.py
