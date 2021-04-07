@@ -9,5 +9,4 @@ Thumbs.db
 # Files
 parcel-addresses.csv
 parcels.csv
-*.png
 secrets.py

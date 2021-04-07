@@ -40,7 +40,7 @@ def mask_image(filename, lat_mask, lon_mask):
   
   image.save(filename, 'PNG')
 
-df = pandas.read_csv('parcels.csv')
+df = pandas.read_csv('example_parcels.csv')
 
 for _, row in df.iterrows():
     center = '{},{}'.format((row['max_latitude'] + row['min_latitude'])/2, (row['max_longitude'] + row['min_longitude'])/2)
