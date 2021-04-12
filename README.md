@@ -8,7 +8,7 @@ Below are the instructions for running a demo of our code up to this point (whic
 ### How to Run
 1. Click [here](https://drive.google.com/file/d/19N8zhbAH3InMox-lb90q4_4MTJtyzY-t/view?usp=sharing) to download a secrets file
 
-2. Place the secrets file at `google\_maps\_queries/src/secrets.py`
+2. Place the secrets file at `google_maps_queries/src/secrets.py`
 
 3. Make the project root the current working directory
 
