@@ -40,30 +40,31 @@ def mask_image(filename, lat_mask, lon_mask):
   
   image.save(filename, 'PNG')
 
-df = pandas.read_csv('example_parcels.csv')
+def download_images_from_csv(filename):
+  df = pandas.read_csv(filename)
 
-for _, row in df.iterrows():
-    center = '{},{}'.format((row['max_latitude'] + row['min_latitude'])/2, (row['max_longitude'] + row['min_longitude'])/2)
+  for _, row in df.iterrows():
+      center = '{},{}'.format((row['max_latitude'] + row['min_latitude'])/2, (row['max_longitude'] + row['min_longitude'])/2)
 
-    zoom, lat_mask, lon_mask = get_zoom_and_masks(row['min_latitude'], row['max_latitude'], row['min_longitude'], row['max_longitude'])
+      zoom, lat_mask, lon_mask = get_zoom_and_masks(row['min_latitude'], row['max_latitude'], row['min_longitude'], row['max_longitude'])
 
-    params = {
-        'size': '{}x{}'.format(300, 300),
-        'zoom': zoom,
-        'markers' : 'icon%3Ahttp%3A%2F%2Fwww.google.com%2Fmapfiles%2Farrow.png',
-        'maptype' : 'satellite',
-        'center' : center,
-        'key' : API_KEY
-    }
+      params = {
+          'size': '{}x{}'.format(300, 300),
+          'zoom': zoom,
+          'markers' : 'icon%3Ahttp%3A%2F%2Fwww.google.com%2Fmapfiles%2Farrow.png',
+          'maptype' : 'satellite',
+          'center' : center,
+          'key' : API_KEY
+      }
 
-    response = requests.get('https://maps.googleapis.com/maps/api/staticmap', params, stream=True)
+      response = requests.get('https://maps.googleapis.com/maps/api/staticmap', params, stream=True)
 
-    category = row['category'].upper().replace(' ', '_')
-    address = row['address'].replace(' ', '_')
+      category = row['category'].upper().replace(' ', '_')
+      address = row['address'].replace(' ', '_')
 
-    filename = 'output/{}/{}.png'.format(category, address)
+      filename = 'output/{}/{}.png'.format(category, address)
 
-    with open(filename, 'wb') as output_file:
-      shutil.copyfileobj(response.raw, output_file)
+      with open(filename, 'wb') as output_file:
+        shutil.copyfileobj(response.raw, output_file)
 
-    mask_image(filename, lat_mask, lon_mask)
+      mask_image(filename, lat_mask, lon_mask)

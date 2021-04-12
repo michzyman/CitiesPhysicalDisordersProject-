@@ -116,5 +116,3 @@ def read_parcels_from_csv(filename):
       print('failed {}...'.format(address))
 
   output.to_csv('parcels.csv', index=False)
-
-read_parcels_from_csv('parcel-addresses.csv')
