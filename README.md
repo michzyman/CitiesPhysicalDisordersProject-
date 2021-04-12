@@ -8,7 +8,7 @@ Below are the instructions for running a demo of our code up to this point (whic
 ### How to Run
 1. Click [here](https://drive.google.com/file/d/19N8zhbAH3InMox-lb90q4_4MTJtyzY-t/view?usp=sharing) to download a secrets file
 
-2. Place the secrets file at google\_maps\_queries/src/secrets.py
+2. Place the secrets file at `google\_maps\_queries/src/secrets.py`
 
 3. Make the project root the current working directory
 
@@ -22,7 +22,7 @@ Below are the instructions for running a demo of our code up to this point (whic
 
 2. The generated CSV is used to query imgaes of the parcels and then masking is applied to each image to show only the parcel it represents
 
-3. Generated images are saved according to parcel category at demo/output
+3. Generated images are saved according to parcel category at `demo/output`
 
 #### Flask frontend
 Additionally, a Flask frontend is running on port 5000 (viewable at localhost:5000 on a web browser). This frontend is not yet fully functional, but it currently allows the downloading and uploading of a template CSV file that will be used to make predictions with the final model
