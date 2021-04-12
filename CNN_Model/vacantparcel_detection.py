@@ -8,15 +8,15 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 import os 
 
-#trainingpath DATASET_PATH  = ''
-#testingpath TEST_DIR =  ''
+DATASET_PATH  = 'google_maps_queries/output'
+TEST_DIR = 'google_maps_queries/output'
 IMAGE_SIZE    = (300,300)
 NUM_CLASSES   = 3
 BATCH_SIZE    = 10  
 LEARNING_RATE = 0.001 
 
-train_dataset = image_dataset_from_directory(directory= DATASET_PATH, label_mode='categorical', class_names = ['OCCUPIED_STRUCTURE', 'VACANR_LOT','VACANT_STRUCTURE'])
-test_dataset = image_dataset_from_directory(directory= TEST_DIR, label_mode='categorical',class_names = ['OCCUPIED_STRUCTURE', 'VACANR_LOT','VACANT_STRUCTURE'])
+train_dataset = image_dataset_from_directory(directory= DATASET_PATH, label_mode='categorical', class_names = ['OCCUPIED_STRUCTURE', 'VACANT_LOT','VACANT_STRUCTURE'])
+test_dataset = image_dataset_from_directory(directory= TEST_DIR, label_mode='categorical',class_names = ['OCCUPIED_STRUCTURE', 'VACANT_LOT','VACANT_STRUCTURE'])
 
 train_datagen = ImageDataGenerator(rescale=1./255,rotation_range=50,featurewise_center = True,
                                    featurewise_std_normalization = True,width_shift_range=0.2,
