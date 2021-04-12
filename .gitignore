@@ -11,3 +11,4 @@ parcel-addresses.csv
 parcels.csv
 secrets.py
 *.pyc
+*.png

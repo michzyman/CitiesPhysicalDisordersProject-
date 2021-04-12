@@ -39,6 +39,7 @@ def mask_image(filename, lat_mask, lon_mask):
   draw.rectangle(((300,0), (300 - 300*lat_mask,300)), fill='black')
   
   image.save(filename, 'PNG')
+  print('masked {}...'.format(filename))
 
 def download_images_from_csv(filename):
   df = pandas.read_csv(filename)
@@ -65,6 +66,7 @@ def download_images_from_csv(filename):
       filename = 'output/{}/{}.png'.format(category, address)
 
       with open(filename, 'wb') as output_file:
+        print('downloaded {}...'.format(filename))
         shutil.copyfileobj(response.raw, output_file)
 
       mask_image(filename, lat_mask, lon_mask)
