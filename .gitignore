@@ -7,6 +7,8 @@ Thumbs.db
 
 
 # Files
+frontend/src/user_files/outputs/*
+frontend/src/user_files/uploads/*
 parcel-addresses.csv
 parcels.csv
 secrets.py

@@ -12,7 +12,7 @@ Below are the instructions for running a demo of our code up to this point (whic
 
 3. Make the project root the current working directory
 
-4. Build the docker container with `docker build . city-disorders` (all Docker commands must be preceded by sudo on some machines)
+4. Build the docker container with `docker build -t city-disorders .` (note: all Docker commands must be preceded by sudo on some machines)
 
 5. Run the docker container with ``docker run -p 5000:5000 -v `pwd`:/code city-disorders``
 
