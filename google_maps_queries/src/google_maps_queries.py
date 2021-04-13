@@ -7,7 +7,7 @@ import shutil
 import math
 import pandas
 
-IMG_RES = 100
+IMG_RES = 300
 
 def zoom_to_coordinate_length(zoom):
   """
