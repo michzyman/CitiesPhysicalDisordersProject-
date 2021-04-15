@@ -2,6 +2,8 @@ import math
 import requests
 import pandas as pd
 
+TIMEOUT = 20
+
 def rads_to_degrees(rads):
   return rads*57.29578
 
@@ -27,7 +29,7 @@ def query_address(address):
   url_endpoint = 'https://gis1.hartford.gov/arcgis/rest/services/AddressPT_Locator_v105/GeocodeServer/findAddressCandidates'
   params = { 'f': 'pjson', 'Single Line Input':address, 'outSR':'{"wkid":102100,"latestWkid":3857}'}
 
-  return requests.get(url_endpoint, params=params, timeout=5).json()
+  return requests.get(url_endpoint, params=params, timeout=TIMEOUT).json()
 
 def query_parcel_survey(location):
   """
@@ -48,7 +50,7 @@ def query_parcel_survey(location):
     'featureEncoding':'esriDefault'
   }
   
-  response = requests.get(url_endpoint, params=params, timeout=5)
+  response = requests.get(url_endpoint, params=params, timeout=TIMEOUT)
   return response.json()
 
 def get_parcel_data(address):
