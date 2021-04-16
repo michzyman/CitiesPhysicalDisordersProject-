@@ -18,11 +18,9 @@ Below are the instructions for running a demo of our code up to this point (whic
 
 ### Expected Output
 #### Generation of training images
-1. The CSV containing addresses of parcels in Hartford, CT is converted into a CSV containing latitude/longitude coordinates and the vacancy category of those parcels
+1. The CSV containing addresses of parcels in Hartford, CT is converted into a CSV containing latitude/longitude coordinates and the vacancy category of those parcels located at `demo/parcels.csv`
 
-2. The generated CSV is used to query imgaes of the parcels and then masking is applied to each image to show only the parcel it represents
-
-3. Generated images are saved according to parcel category at `demo/output`
+2. The generated CSV is used to query imgaes of the parcels and then masking is applied to each image to show only the parcel it represents. These images are categorized under `demo/output`
 
 #### Flask frontend
 Additionally, a Flask frontend is running on port 5000 (viewable at localhost:5000 on a web browser). This frontend is not yet fully functional, but it currently allows the downloading and uploading of a template CSV file that will be used to make predictions with the final model
