@@ -33,7 +33,7 @@ train_batches = train_datagen.flow_from_directory(DATASET_PATH,target_size=IMAGE
                                                   subset = "training",seed=42,
                                                   class_mode="categorical")
 
-valid_batches = train_datagen.flow_from_directory(TEST_DIR,target_size=IMAGE_SIZE,
+valid_batches = train_datagen.flow_from_directory(DATASET_PATH,target_size=IMAGE_SIZE,
                                                   shuffle=True,batch_size=BATCH_SIZE,
                                                   subset = "validation",
                                                   seed=42,class_mode="categorical")
@@ -48,19 +48,14 @@ for layer in vgg.layers[:]:
 model = models.Sequential()
 model.add(vgg)
 model.add(layers.Flatten())
-model.add(layers.Dense(300, activation='relu'))
-model.add(layers.Dropout(0.2))
 model.add(layers.Dense(64, activation='relu'))
 model.add(layers.Dropout(0.2))
 model.add(layers.Dense(32, activation='relu'))
 model.add(layers.Dropout(0.2))
 model.add(layers.Dense(3, activation='sigmoid'))
 
-opt = tf.keras.optimizers.Adam(learning_rate=0.001)
+opt = tf.keras.optimizers.Adam(learning_rate=0.0005)
 model.compile(optimizer=opt,loss='categorical_crossentropy', metrics=['accuracy'] )
-
-model.fit(train_batches, validation_data=valid_batches, epochs=NUM_EPOCHS, batch_size=BATCH_SIZE)
-model.evaluate(train_batches, batch_size=BATCH_SIZE)
-
-
+model.fit(train_batches, validation_data = valid_batches, epochs = NUM_EPOCHS, batch_size = BATCH_SIZE)
+model.evaluate(valid_batches, batch_size=BATCH_SIZE)
 model.save('model')
