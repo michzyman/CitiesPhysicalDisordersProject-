@@ -7,7 +7,7 @@ import shutil
 import math
 import pandas
 
-IMG_RES = 300
+IMG_RES = 224
 
 def zoom_to_coordinate_length(zoom):
   """
@@ -38,7 +38,7 @@ def get_zoom_and_masks(min_lat, max_lat, min_lon, max_lon):
   lat_length, lon_length = max_lat - min_lat, max_lon - min_lon
 
   # Approxiate the Zoom level for the larger coordinate length
-  zoom = coordinate_length_to_zoom(max(lat_length, lon_length))
+  zoom = coordinate_length_to_zoom(min(lat_length, lon_length))
 
   # Zoom levels must be integers, so round down to avoid cutting anything off
   zoom = math.floor(zoom)
