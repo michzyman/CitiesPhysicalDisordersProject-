@@ -4,9 +4,11 @@ __pycache__
 .vscode
 .DS_Store
 Thumbs.db
+saved_model
 
 
 # Files
 parcel-addresses.csv
 parcels.csv
 secrets.py
+*.png
