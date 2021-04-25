@@ -4,6 +4,7 @@ __pycache__
 .vscode
 .DS_Store
 Thumbs.db
+saved_model
 
 
 # Files
