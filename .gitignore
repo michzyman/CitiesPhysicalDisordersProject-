@@ -3,7 +3,6 @@ env
 __pycache__
 .vscode
 .DS_Store
-.elasticbeanstalk
 Thumbs.db
 saved_model
 
