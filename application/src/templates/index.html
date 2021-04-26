@@ -5,48 +5,119 @@
         <link rel="stylesheet" href="{{ url_for('static', filename= 'static/css/style.css') }}">
         <title>Vacant Lot Classifier</title>
 
-        <style>
-          body {font-family:Arial, Helvetica, sans-serif;
-          background-color:  #f0efed;
-        font-size: large; }
-          h2{
-            color:  #6383b0;
-            font: bold;
-          }
-          button {
-            color: black;
-            font: Arial, bold;
-            font-size: medium;
-            margin: 8px 0;
-            cursor: pointer;
-          }
-          input {
-            color: black;
-            font: Arial, bold;
-            font-size: medium;
-            margin: 8px 0;
-            cursor: pointer;
-          }
-        </style>
+      <style>
+      
+      *{
+          margin: 0;
+          padding: 0;
+      }
+      .container{
+          height:100vh;
+          width: 100%;
+          padding: 70px 0;
+          text-align: center;
+          background-image: url(frontend/src/templates/images/image2.png);
+          background-position: center;
+          background-size: cover;
+          padding-left: 5%;
+          padding-right: 5%;
+          box-sizing: border-box;
+          position: relative;
+      }
+      
+      .center{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      
+      body{
+        font-family: 'Helvetica';font-size: 22px;
+        background-image: url("https://images.unsplash.com/photo-1573405318260-4fdbece8a7c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1936&q=80");
+        background-size: cover;
+        font-size: large;
+      }
+      
+                
+      button {
+        color: #706868;
+        font-family: 'Helvetica', bold;
+        font-size: medium;
+        margin: 16px 0;
+        cursor: pointer;
+        padding:10px;
+        border:0;
+        box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.185);
+        border-radius:20px;
+      }
+
+      .dark{
+        color: #484848;
+        font: Open Sans, bold;
+        font-size: medium;
+        margin: 16px 0;
+        cursor: pointer;
+        padding:10px;
+        border:0;
+        box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.678);
+        border-radius:20px;
+      }
+      .text-input {
+        color: #000000;
+        font: Open Sans, bold;
+        font-size: medium;
+        margin: 16px 0;
+        cursor: pointer;
+        padding:10px;
+        border:0;
+        box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.678);
+        border-radius:20px;
+      }
+      input {
+        color: #ffffff;
+        font: Open Sans, bold;
+        font-size: medium;
+        margin: 16px 0;
+        cursor: pointer;
+        padding:10px;
+        border:0;
+        box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.678);
+        border-radius:20px;
+      }
+        h1{
+          text-align: center;
+          color:  #ffffff;
+          font-size: xx-large;
+          font: bolder;
+          padding:5px;
+      }
+        h4{
+          text-align: center;
+          color:  #ffffff;
+          font-size: medium;
+          
+        }
+      </style>
 
       </head>
     <body>
-      <h2>Vacant Lot Classifier</h2>
-      <p>Step 1: Download and complete the following input template</p>
-      <a href='/static/input_template.csv'>
-        <button>
-          Download
-        </button>
-      </a>
+        <div class='container'>
+            <div class='center'>
+                <h1>VACANT LOT CLASSIFIER</h1>
+                <p><h4>Step 1: Download and complete the input template</h4></p>
+                <a href='/static/input_template.csv'><button>Download</button></a>
 
-      <form action='/upload' method='POST' enctype='multipart/form-data'>
-        <p>Step 2: Choose your completed input file</p>
-        <input type='file' name='input_file'/>
-        <p>Step 3: Provide a Google Maps Static API key</p>
-        <input type='text' name='api_key' />
-        <p>Step 4: Submit and get classifications (may take several minutes depending on # of parcels)</p>
-        <input type='submit' value='Submit'/>
-      </form>
+                <form action='/upload' method='POST' enctype='multipart/form-data'>
+                    <p><h4>Step 2: Choose your completed input file</h4></p>
+                    <input type='file' name='input_file'/>
+                    <p><h4>Step 3: Provide a Google Maps Static API key</h4></p>
+                    <input class='text-input' type='text' name='api_key' />
+                    <p><h4>Step 4: Submit and get classifications (may take a long time)</h4></p>
+                    <input class='dark' type='submit' value='Submit'/>
+                </form>
+            </div>
+        </div>
 
     </body>
 </html>
