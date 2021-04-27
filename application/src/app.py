@@ -2,7 +2,7 @@
 
 from classifier.predictions import generate_predictions
 
-from flask import Flask, request, render_template, send_from_directory, send_file
+from flask import Flask, request, render_template, send_file, escape
 import uuid
 import os
 import shutil
@@ -25,7 +25,7 @@ def download_input_template():
 @app.route('/upload', methods=['POST'])
 def upload():
     file = request.files['input_file']
-    api_key = request.form['api_key']
+    api_key = escape(request.form['api_key'])
 
     reset_user_files()
 
@@ -33,7 +33,10 @@ def upload():
     file.save(upload_filepath)
 
     output_filepath = os.path.join(OUTPUT_PATH, str(uuid.uuid4()))
-    generate_predictions(upload_filepath, output_filepath, api_key)
+    try:
+        generate_predictions(upload_filepath, output_filepath, api_key)
+    except:
+        return render_template('error.html')
 
     return send_file(output_filepath, attachment_filename='output.csv', as_attachment=True)
 
@@ -55,4 +58,5 @@ def reset_user_files():
 
 
 if __name__ == '__main__':
+    app.debug = True
     app.run(host='0.0.0.0')
