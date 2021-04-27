@@ -110,9 +110,9 @@
 
                 <form action='/upload' method='POST' enctype='multipart/form-data'>
                     <p><h4>Step 2: Choose your completed input file</h4></p>
-                    <input type='file' name='input_file'/>
+                    <input type='file' name='input_file' accept='.csv' required/>
                     <p><h4>Step 3: Provide a Google Maps Static API key</h4></p>
-                    <input class='text-input' type='text' name='api_key' />
+                    <input class='text-input' type='text' name='api_key' required/>
                     <p><h4>Step 4: Submit and get classifications (may take a long time)</h4></p>
                     <input class='dark' type='submit' value='Submit'/>
                 </form>
