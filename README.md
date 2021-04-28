@@ -9,7 +9,7 @@ Even though lots can be polygons of any shape, our model currently is working wi
 In the future, this model could be improved by utilizing images that capture the exact shape of lots, rather than approximating the shapes with rectangles. This would likely involve parsing a GIS Shapefile. In addition, our model does not distinguish vacant structures from occupied structures. In other words, our model defines a vacant lot as a lot containing no structures whatsoever. A model that could distinguish between a vacant lot, a vacant structure, and an occupied structure could be more useful but may require the use of Street View imagery.
 
 # 3. Why is this tool needed
-Vacant and abandoned land is prevalent throughout the United States. Research from [studies]((https://doi.org/10.1073/pnas.1718503115) conducted by Columbia University and University of Pennsylvania shows that restoring vacant land decreases firearm violence and crime. However, not all cities maintain comprehensive data of where vacant lots are present. As such, Dr. Jonathan Jay of the Boston University School of Public Health would like to automate the process of locating these lots. That way, city officials can be informed of the existence and location of empty lots, action can be taken to reorganize and rebuild these areas, and future violence can be prevented.
+Vacant and abandoned land is prevalent throughout the United States. Research from [studies](https://doi.org/10.1073/pnas.1718503115) conducted by Columbia University and University of Pennsylvania shows that restoring vacant land decreases firearm violence and crime. However, not all cities maintain comprehensive data of where vacant lots are present. As such, Dr. Jonathan Jay of the Boston University School of Public Health would like to automate the process of locating these lots. That way, city officials can be informed of the existence and location of empty lots, action can be taken to reorganize and rebuild these areas, and future violence can be prevented.
 
 While our model does not yet fully automate the process of locating vacant lots, it is able to somewhat accurately determine the vacancy of a list of lots of interest. Therefore, this model can be seen as a proof-of-concept for the desired end goal.
 
@@ -53,8 +53,10 @@ In order to be able to use Docker to build the project, [click here](https://doc
 ## 6.4. Building and Running the Docker Container
 Navigate to the `application/` directory in [Terminal](https://macpaw.com/how-to/use-terminal-on-mac) and run the following Docker commands:
 
-`docker build -t city-disorders .`
-`docker run -p 5000:5000 city-disorders`
+```
+docker build -t city-disorders .
+docker run -p 5000:5000 city-disorders
+```
 
 # 7. Using the Flask app
 
