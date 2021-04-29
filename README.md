@@ -55,7 +55,7 @@ In order to run this project, you will need to [install Git](https://github.com/
 In order to be able to use Docker to build the project, [click here](https://docs.docker.com/docker-for-mac/install/) and follow the steps to install Docker. This documentation is for Mac only.
 
 ## 6.4. Building and Running the Docker Container
-Navigate to the `application/` directory in [Terminal](https://macpaw.com/how-to/use-terminal-on-mac) and run the following Docker commands:
+Navigate (_cd_) inside the `application/` directory in [Terminal](https://macpaw.com/how-to/use-terminal-on-mac) and run the following Docker commands:
 
 ```
 docker build -t city-disorders .
@@ -110,7 +110,7 @@ We also masked the images with black rectangles. These masks are neccesary becau
 
 This program incorporates a supervised binary classification model to determine the probability of whether or not an input is a vacant lot or not. Code for the convolutional neural network is at `/application/src/classifier/model_code/vacant_occupied.py`.
 
-Initially, the model takes in as input the images that were extracted in the previous step (224x224). The data was manually split into two folders: train (80%) and test (20%). The subfolders in each of these are “STRUCTURE” and “VACANT_LOT.” Additionally, 20% of the training dataset was used for validation. The neural network uses VGG16 as a pretrained model, followed by several dense layers. Two dropout layers were added between the dense layers in order to prevent the model from overfitting to the training data. ReLU was used as the activation function; this activation function is typically used as a default for convolutional neural networks because it allows the model to overcome the vanishing gradient problem, and consequently learn faster and perform better. The final layer uses the sigmoid activation function to give a value between 0 and 1, which is ultimately used for the prediction of whether or not the parcel is a vacant lot. Since the image data contains a lot of information that is not necessarily used to make the prediction, it is considered quite noisy. As such, the Adam optimizer is used to handle this.
+Initially, the model takes in as input the images that were extracted in the previous step (224x224). We chose these image dimensions because it matches the dimensions of ImageNet, which VGG16 (the base of our model) has been pre-trained on. The data was manually split into two folders: train (80%) and test (20%). The subfolders in each of these are “STRUCTURE” and “VACANT_LOT.” Additionally, 20% of the training dataset was used for validation. The neural network uses VGG16 as a pretrained model, followed by several dense layers. Two dropout layers were added between the dense layers in order to prevent the model from overfitting to the training data. ReLU was used as the activation function; this activation function is typically used as a default for convolutional neural networks because it allows the model to overcome the vanishing gradient problem, and consequently learn faster and perform better. The final layer uses the sigmoid activation function to give a value between 0 and 1, which is ultimately used for the prediction of whether or not the parcel is a vacant lot. Since the image data contains a lot of information that is not necessarily used to make the prediction, it is considered quite noisy. As such, the Adam optimizer is used to handle this.
 
 # 9. Resources
 
@@ -124,9 +124,9 @@ We provide a sample of an input CSV file which contains the min/max latitude and
 ## 9.2. EDA
 When generating our dataset images, we used all vacant lots and vacant structures, but a subset of the occupied structures; however, we did not choose to balance the categories completely. As seen in the pie chart below, only 14.4% of the data (less than 1/6) represents vacant lots.
 
-![category frequency]()
+![category frequency](https://raw.githubusercontent.com/michzyman/CitiesPhysicalDisordersProject-/main/category_frequency.png)
 
-We chose to do this because occupied structures are overwhelmingly dominate the frequency of vacant lots, so it make sense for the model to bias towards occupied structures if it is predicitng randomly sampled lots. Given the specifity and recall for our final binary model below, we felt this worked reasonably well for use cases in which lots are being randomly sampled for prediction; however, our dataset could be balanced and the model retrained if the use case required the model to not take category frequency into account and predict purely on their visual features. The categorical accuracy of our current model can be broken down as follows:
+We chose to do this because the frequency of occupied structures overwhelmingly dominates the frequency of vacant lots, so it make sense for the model to bias towards occupied structures if it is predicitng randomly sampled lots. Given the specifity and recall for our final binary model below, we felt this worked reasonably well for use cases in which the lots being predicted are randomly sampled; however, our dataset could be balanced and the model retrained if the use case required the model to not take category frequency into account and predict purely on their visual features. The categorical accuracy of our current model can be broken down as follows:
 
 | Category | Precision | Recall | f1-score
 --- | --- | --- | ---
@@ -134,6 +134,4 @@ We chose to do this because occupied structures are overwhelmingly dominate the 
 | Vacant | 0.77 | 0.79 | 0.78 |
 
 ## 9.3. Dataset Used for Training
-All of the data that we used to train and test our models can be found on Google Drive. Our models were trained using 80% of the data and tested on the remaining 20%. Each zip file contains two folders: test and train. 
-
-TODO
+The images used for training can be found [here](https://drive.google.com/file/d/1_1_MolX4b3kORVZjum7Jp5Roj6IgdeHb/view?usp=sharing). The dataset includes the "vacant structure" category, but this can be merged with the images in "occupied structure" to create the structure (referred to as "not vacant") vs. no structure (referred to as "vacant") classifications our final model uses.
