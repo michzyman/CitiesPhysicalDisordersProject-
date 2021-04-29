@@ -18,7 +18,7 @@ Even though lots can be polygons of any shape, our model currently is working wi
 
 In the future, this model could be improved by utilizing images that capture the exact shape of lots, rather than approximating the shapes with rectangles. This would likely involve parsing a GIS Shapefile. In addition, our model does not distinguish vacant structures from occupied structures. In other words, our model defines a vacant lot as a lot containing no structures whatsoever. A model that could distinguish between a vacant lot, a vacant structure, and an occupied structure could be more useful but may require the use of Street View imagery.
 
-![occupied structure](https://raw.githubusercontent.com/michzyman/CitiesPhysicalDisordersProject-/main/occupied.png) ![vacant lot](https://raw.githubusercontent.com/michzyman/CitiesPhysicalDisordersProject-/main/vacant_lot.png) ![vacant structure](https://raw.githubusercontent.com/michzyman/CitiesPhysicalDisordersProject-/main/vacant_structure.png)
+![occupied structure](https://raw.githubusercontent.com/michzyman/CitiesPhysicalDisordersProject-/main/misc/pics/occupied.png) ![vacant lot](https://github.com/michzyman/CitiesPhysicalDisordersProject-/blob/main/misc/pics/vacant_lot.png) ![vacant structure](https://github.com/michzyman/CitiesPhysicalDisordersProject-/blob/main/misc/pics/vacant_structure.png)
 
 _These are examples of the satellite images used as inputs to the convolutional neural network. The first image is an occupied structure, the second is a vacant lot, and the third is a vacant structure. All are images of real lots in in Hartford, Connecticut, and were extracted using the Google Maps Static API._
 
@@ -139,7 +139,7 @@ We provide a sample of an input CSV file which contains the min/max latitude and
 ## 9.2. EDA
 When generating our dataset images, we used all vacant lots and vacant structures, but a subset of the occupied structures; however, we did not choose to balance the categories completely. As seen in the pie chart below, only 14.4% of the data (less than 1/6) represents vacant lots.
 
-![category frequency](https://raw.githubusercontent.com/michzyman/CitiesPhysicalDisordersProject-/main/category_frequency.png)
+![category frequency](https://raw.githubusercontent.com/michzyman/CitiesPhysicalDisordersProject-/main/misc/pics/category_frequency.png)
 
 We chose to do this because the frequency of occupied structures overwhelmingly dominates the frequency of vacant lots, so it make sense for the model to bias towards occupied structures if it is predicitng randomly sampled lots. Given the specifity and recall for our final binary model below, we felt this worked reasonably well for use cases in which the lots being predicted are randomly sampled; however, our dataset could be balanced and the model retrained if the use case required the model to not take category frequency into account and predict purely on their visual features. The categorical accuracy of our current model can be broken down as follows:
 
