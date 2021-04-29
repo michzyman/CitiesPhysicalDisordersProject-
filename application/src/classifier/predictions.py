@@ -37,8 +37,10 @@ def generate_predictions(input_filepath, output_filepath, api_key):
         filename_index = name.index('/') + 1
         name = name[filename_index:]
 
-        rows.append([name, prediction[0]])
+        label = 'Vacant' if prediction[0] else 'Not vacant'
 
-    df = DataFrame(rows, columns=['name', 'likely vacant'])
+        rows.append([name, label])
+
+    df = DataFrame(rows, columns=['Name', 'Category'])
 
     df.to_csv(output_filepath, index=False)

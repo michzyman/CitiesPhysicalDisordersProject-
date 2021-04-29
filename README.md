@@ -1,5 +1,15 @@
+We'd like to give a special thank you to the contributors of [https://github.com/weirdindiankid/CS501-Liberator-Project](https://github.com/weirdindiankid/CS501-Liberator-Project), as this README was in large part modeled after theirs.
+
 # 1. Table Of Contents
-TODO
+1. [Table of Contents](#1-table-of-contents)
+2. [Evaluating Physical Disorder in Cities](#2-evaluating-physical-disorder-in-cities)
+3. [Why is This Tool Needed](#3-why-is-this-tool-needed)
+4. [Future Direction](#4-future-direction)
+5. [Overview of Functionality](#5-overview-of-functionality)
+6. [Getting Started](#6-getting-started)
+7. [Using the Flask App](#7-using-the-flask-app)
+8. [Explanation of Code](#8-explanation-of-code)
+9. [Resources](#9-resources)
 
 # 2. Evaluating Physical Disorder in Cities
 This repository contains a Flask application for determining the vacancy of a lot given its minimum and maximum latitude/longitude as input. The app processes the user input, generates images of the lots utilizing Google Maps Static API, and then predicts the vacancy of those lots via a Convolutional Neural Network. 
@@ -12,12 +22,12 @@ In the future, this model could be improved by utilizing images that capture the
 
 _These are examples of the satellite images used as inputs to the convolutional neural network. The first image is an occupied structure, the second is a vacant lot, and the third is a vacant structure. All are images of real lots in in Hartford, Connecticut, and were extracted using the Google Maps Static API._
 
-# 3. Why is this tool needed
+# 3. Why is This Tool Needed
 Vacant and abandoned land is prevalent throughout the United States. Research from [studies](https://doi.org/10.1073/pnas.1718503115) conducted by Columbia University and University of Pennsylvania shows that restoring vacant land decreases firearm violence and crime. However, not all cities maintain comprehensive data of where vacant lots are present. As such, Dr. Jonathan Jay of the Boston University School of Public Health would like to automate the process of locating these lots. That way, city officials can be informed of the existence and location of empty lots, action can be taken to reorganize and rebuild these areas, and future violence can be prevented.
 
 While our model does not yet fully automate the process of locating vacant lots, it is able to somewhat accurately determine the vacancy of a list of lots of interest. Therefore, this model can be seen as a proof-of-concept for the desired end goal.
 
-# 4. Future direction
+# 4. Future Direction
 
 ## 4.1. Current State
 As of right now, our model is able to do the following: 
