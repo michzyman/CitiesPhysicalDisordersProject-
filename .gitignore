@@ -15,3 +15,7 @@ parcels.csv
 secrets.py
 *.pyc
 *.png
+
+# Exceptions
+!occupied.png
+!vacant.png
