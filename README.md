@@ -133,5 +133,11 @@ We chose to do this because the frequency of occupied structures overwhelmingly 
 | Not vacant | 0.96 | 0.96 | 0.96 |
 | Vacant | 0.77 | 0.79 | 0.78 |
 
+We considered doing a three-class model, separating vacant structures from occupied structures; however, we built a preliminary model with these classes and were getting significantly lower than desired accuracy (~78%). In order to understand these results better, we plotted the feature map of our test set at the second fully-connected layer using a t-distributed stochastic neighbor embedding to reduce dimensionality. This gave the following plot.
+
+![t-SNE plot](https://raw.githubusercontent.com/michzyman/CitiesPhysicalDisordersProject-/main/misc/pics/tsne_reduction.png)
+
+This plot shows that while occupied structures and vacant lots were largely seperable from one another, vacant structures were largely inseparable from occupied structures. This relationship makes sense when one considers that it is incredibly difficult to tell whether a structure is occupied from a satellite view. For this reason, we chose to combine vacant structures and occupied structures into one class.
+
 ## 9.3. Dataset Used for Training
 The images used for training can be found [here](https://drive.google.com/file/d/1_1_MolX4b3kORVZjum7Jp5Roj6IgdeHb/view?usp=sharing). The dataset includes the "vacant structure" category, but this can be merged with the images in "occupied structure" to create the structure (referred to as "not vacant") vs. no structure (referred to as "vacant") classifications our final model uses.
