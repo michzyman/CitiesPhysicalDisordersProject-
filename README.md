@@ -48,14 +48,19 @@ This project is executed via a Docker container, and therefore should run fine o
 
 Also, please ensure [nothing is running](https://help.extensis.com/hc/en-us/articles/360004935154-Identifying-ports-in-use-on-Mac-and-Windows-Operating-Systems) on port 5000, as it will be needed to run a Flask server.
 
-## 6.2. Setting up the Project
-In order to run this project, you will need to [install Git](https://github.com/git-guides/install-git), [clone the repository](https://github.com/git-guides/git-clone) `git clone https://github.com/michzyman/CitiesPhysicalDisordersProject-`, download and unzip [this ZIP file](https://drive.google.com/file/d/1MeZVs2wut_zAWDisxKNaoUJDhI24aPbw/view?usp=sharing), and place the saved_model folder at `application/src/classifier/saved_model`
+## 6.2. Installing Git and Cloning the Repository
+The first thing that you will need to do in order to run this project is to [install Git](https://github.com/git-guides/install-git). After installation, you are read to [clone the repository](https://github.com/git-guides/git-clone) in [Terminal](https://macpaw.com/how-to/use-terminal-on-mac) with the following console command.
+
+`git clone https://github.com/michzyman/CitiesPhysicalDisordersProject-`
+
+## 6.3. Downloading saved_model
+Next, you will need to download [this](https://drive.google.com/file/d/1MeZVs2wut_zAWDisxKNaoUJDhI24aPbw/view?usp=sharing) ZIP file and unzip it in the following location: `application/src/classifier/saved_model`
 
 ## 6.3. Installing Docker
 In order to be able to use Docker to build the project, [click here](https://docs.docker.com/docker-for-mac/install/) and follow the steps to install Docker. This documentation is for Mac only.
 
 ## 6.4. Building and Running the Docker Container
-Navigate (_cd_) inside the `application/` directory in [Terminal](https://macpaw.com/how-to/use-terminal-on-mac) `cd <path to project folder>/application` and run the following Docker commands:
+Navigate to the `application` directory in Terminal (`cd <path to project folder>/application`) and run the following Docker commands:
 
 ```
 docker build -t city-disorders .
