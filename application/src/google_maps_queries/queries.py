@@ -76,6 +76,12 @@ def mask_image(filename, lat_mask, lon_mask):
 def download_images_from_csv(filepath, image_directory, api_key, has_categories=True):
     df = pandas.read_csv(filepath)
 
+    if not os.path.isdir(image_directory):
+        os.mkdir(image_directory)
+    else:
+        shutil.rmtree(image_directory)
+        os.mkdir(image_directory)
+
     for _, row in df.iterrows():
         name, max_lat, min_lat, max_lon, min_lon = (
             row['name'],
@@ -99,12 +105,6 @@ def download_images_from_csv(filepath, image_directory, api_key, has_categories=
         }
 
         response = requests.get('https://maps.googleapis.com/maps/api/staticmap', params, stream=True)
-
-        if not os.path.isdir(image_directory):
-            os.mkdir(image_directory)
-        else:
-            shutil.rmtree(image_directory)
-            os.mkdir(image_directory)
 
         if has_categories:
             category = row['category'].upper().replace(' ', '_')

@@ -15,7 +15,7 @@ BATCH_SIZE = 1
 
 def generate_predictions(input_filepath, output_filepath, api_key):
     download_images_from_csv(input_filepath, IMAGE_PATH, api_key, has_categories=False)
-    
+
     classifier = load_model(SAVED_MODEL_PATH)
 
     datagen = ImageDataGenerator(rescale=1./255)

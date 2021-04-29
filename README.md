@@ -90,7 +90,7 @@ Save the completed CSV to a known location on your computer.
 Click the “Browse” button and load the CSV file that you just completed.
 
 ## 7.3 Google Maps Static API Key 
-In the text field, provide an API key that has authorization to query the Google Maps Static API. Steps for acquiring a key can be found [here](https://developers.google.com/maps/premium/apikey/maps-static-apikey). If you are Tania or Dharmesh, you can use our personal key found [here](https://drive.google.com/file/d/19N8zhbAH3InMox-lb90q4_4MTJtyzY-t/view).
+In the text field, provide an API key that has authorization to query the Google Maps Static API. Steps for acquiring a key can be found [here](https://developers.google.com/maps/premium/apikey/maps-static-apikey). If you are Tania or Dharmesh, you can use our personal key found [here](https://drive.google.com/file/d/1IaSy-90QJsJXLBdvmXMaJwFrghI9jTIJ/view?usp=sharing).
 
 ## 7.4 Submit
 Clicking the submit button will begin the image generation and classification process. There will be no change in the webpage until it is complete, and this may take a considerable amount of time, especially if the input file contains many lots. Upon completion, a file containing the classifications will be downloaded. 
