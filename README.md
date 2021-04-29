@@ -55,7 +55,7 @@ In order to run this project, you will need to [install Git](https://github.com/
 In order to be able to use Docker to build the project, [click here](https://docs.docker.com/docker-for-mac/install/) and follow the steps to install Docker. This documentation is for Mac only.
 
 ## 6.4. Building and Running the Docker Container
-Navigate (_cd_) inside the `application/` directory in [Terminal](https://macpaw.com/how-to/use-terminal-on-mac) `cd <path to project folder>/applications` and run the following Docker commands:
+Navigate (_cd_) inside the `application/` directory in [Terminal](https://macpaw.com/how-to/use-terminal-on-mac) `cd <path to project folder>/application` and run the following Docker commands:
 
 ```
 docker build -t city-disorders .
