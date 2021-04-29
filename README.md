@@ -83,25 +83,55 @@ Clicking the submit button will begin the image generation and classification pr
 # 8. Explanation of Code
 
 ## 8.1. Hartford Data Scraping
-Inside the src folder which is inside the folder named “hartford_data_gen”, there is a python file named “parcel_info_collection.py”. This file contains the code we used to perform the Hartford data scraping. Thanks to the implementation of this code we were able to output a csv file with the min and max values for latitude and longitude coordinates for the parcels in Hartford. 
+`misc/hartford_data_gen/src/parcel_info_collection.py` contains the code we used to gather location and category information from Hartford for generating our training images. This information was sourced from a 2019 City Survey that can be viewed in a GIS interface [here](https://gis1.hartford.gov/Html5Viewer/index.html?viewer=AllCitySurvey2019). We noticed this interface has a search function that allows you to search for the address of a particular lot and see it outlined on the map. We inspected the network query this search function makes and figured out an HTTP request we can make to get location and category information for a lot, given its address.
+
+Unfortunately, the location information give was not in longitudinal/latitudinal coordinates. Instead, it was in the WGS84 coordinate system on a Mercator projection, which varies depending on the scale of the map used. We were able to get formulas from page 44 of [this](https://pubs.usgs.gov/pp/1395/report.pdf) textbook, that can convert WG84 coordinates to longitude/latitude coordinates, given an R value that represents the radius of the spherical representation of the earth chosen for that particular map scale. However, we had no info on what R value was being used for this particular GIS system. We approximated it by getting the center coordinates of a particular lot from the GIS system, getting the longitude/latitude coordinates from the same point in Google Maps, and solving the textbook formulas for R.
+
+Using this information and a [list of Hartford addresses](https://openhartford-hartfordgis.opendata.arcgis.com/datasets/address-points/data?geometry=-72.843%2C41.719%2C-72.523%2C41.809&page=2), we were able to generate a list of the category and location information for thousands of Hartford lots, available [here](https://docs.google.com/spreadsheets/d/1jNROdiK3b9OUrAaUAT3BtaPwoWtAbk71_V4hldIZOfk/edit#gid=1475189330).
 
 ## 8.2. Google Maps Satellite Image Generation
-TODO
+The code used to generate the images from the extracted csv file can be found in this repository at `application/src/google_maps_queries/queries.py`. Google Maps Static API was used to get satellite images of the lots. After reading the csv file, a center point is calculated for each of the locations based on the min and max latitude/longitude values. Since the API accepts a center point and "zoom level" for querying images, we had to do a bit of math to query and mask our dataset images to the precise lot locations.
+
+Let the distance covered by a Google Maps API image in terms of longitude/latitude be the "coordinate length" of the image. For instance, a square image that shows the terrain from the longitude line 39.381 to line 39.481 has a latitude length of 0.1. Each zoom level in the Google Maps API shows half the coordinate length of the zoom level before it. For instance, if a 224x224 pixel image at a zoom level of 21 has a coordinate length of 0.1, then a 224x224 pixel image at a zoom level of 20 has a coordinate length of 0.2. Therefore, it must be the case that for some constant X the following formula can give the coordinate length covered:
+
+`2**(-zoom_level) * X * image_resolution`
+
+The inverse of this formula would instead give the appropriate zoom level for a particular coordinate distance:
+
+`-math.log(coordinate_length/(X * image_resolution), 2)`
+
+We were able to calculate X by simply generating an image, measuring the coordinate length it covered on Google Maps, and then plugging the image parameters into the formula above to solve for X. It turns out that `X = 1.3981`.
+
+Because we knew what coordinate length needed to be covered for each image (the difference betwen either the min and max longitude or min and max latitude), we could use that second formula to get an appropriate zoom level, and then round down because zoom levels have to be integers. Initially, we used the larger of the latitudinal difference or longitudinal distance to ensure we did not cut off any of the lot, but because lots were not perfectly rectangular along the longitude/latitude axes, there was significant overlap from neighboring lots. We ended up instead using the smaller of the latitudinal difference and longitudnial difference to reduce this overlap while still getting most of the target lot.
+
+We also masked the images with black rectangles. These masks are neccesary because having to round the zoom level down to the nearest integer (e.g. the desireable zoom level is 21.432, but the API will accept either 21 or 22) the zoom did not capture the desired distance exactly. These masks are used to cut out the irrevelant information this discrepancy adds at the border of the images.
 
 ## 8.3. Convolutional Neural Network
-TODO
+
+This program incorporates a supervised binary classification model to determine the probability of whether or not an input is a vacant lot or not. Code for the convolutional neural network is at `/application/src/classifier/model_code/vacant_occupied.py`.
+
+Initially, the model takes in as input the images that were extracted in the previous step (224x224). The data was manually split into two folders: train (80%) and test (20%). The subfolders in each of these are “STRUCTURE” and “VACANT_LOT.” Additionally, 20% of the training dataset was used for validation. The neural network uses VGG16 as a pretrained model, followed by several dense layers. Two dropout layers were added between the dense layers in order to prevent the model from overfitting to the training data. ReLU was used as the activation function; this activation function is typically used as a default for convolutional neural networks because it allows the model to overcome the vanishing gradient problem, and consequently learn faster and perform better. The final layer uses the sigmoid activation function to give a value between 0 and 1, which is ultimately used for the prediction of whether or not the parcel is a vacant lot. Since the image data contains a lot of information that is not necessarily used to make the prediction, it is considered quite noisy. As such, the Adam optimizer is used to handle this.
 
 # 9. Resources
 
 ## 9.1. Example Input/Output
-We provide a sample of an input CSV file which contains the min/max latitude and longitude coordinates of the parcels of interest. This sample input file contains parcels corresponding to the city of Hartford. In addition, we also provide a sample output CSV file with the description of the parcel state (vacant, not vacant). Both of the sample files can be found in our google drive. 
+We provide a sample of an input CSV file which contains the min/max latitude and longitude coordinates of the lots of interest. This sample input file contains lots corresponding to the city of Hartford. In addition, we also provide a sample output CSV file with the description of the lot state (vacant, not vacant). Both of the sample files can be found in our google drive. 
 
 [Input Sample CSV File](https://drive.google.com/file/d/1Ql-zzkaOViGRQaZ_xs-owNoEP8rWSbx6/view)
 
 [Output Sample CSV File](https://drive.google.com/file/d/1wuopgssISEmlzSouLaOd1gaKnDOLVTT2/view)
 
 ## 9.2. EDA
-TODO
+When generating our dataset images, we used all vacant lots and vacant structures, but a subset of the occupied structures; however, we did not choose to balance the categories completely. As seen in the pie chart below, only 14.4% of the data (less than 1/6) represents vacant lots.
+
+![category frequency]()
+
+We chose to do this because occupied structures are overwhelmingly dominate the frequency of vacant lots, so it make sense for the model to bias towards occupied structures if it is predicitng randomly sampled lots. Given the specifity and recall for our final binary model below, we felt this worked reasonably well for use cases in which lots are being randomly sampled for prediction; however, our dataset could be balanced and the model retrained if the use case required the model to not take category frequency into account and predict purely on their visual features. The categorical accuracy of our current model can be broken down as follows:
+
+| Category | Precision | Recall | f1-score
+--- | --- | --- | ---
+| Not vacant | 0.96 | 0.96 | 0.96 |
+| Vacant | 0.77 | 0.79 | 0.78 |
 
 ## 9.3. Dataset Used for Training
 All of the data that we used to train and test our models can be found on Google Drive. Our models were trained using 80% of the data and tested on the remaining 20%. Each zip file contains two folders: test and train. 
